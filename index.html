@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account Access</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        background: #f4f6fb;
+        color: #1f2430;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+
+      .page {
+        display: grid;
+        gap: 24px;
+        max-width: 980px;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 20px 40px rgba(31, 36, 48, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .card h1,
+      .card h2 {
+        margin: 0;
+      }
+
+      .card h1 {
+        font-size: 1.6rem;
+      }
+
+      .card h2 {
+        font-size: 1.3rem;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: #5c6579;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+
+      .pill {
+        align-self: flex-start;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #eef2ff;
+        color: #4b6bff;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .social-group {
+        display: grid;
+        gap: 12px;
+      }
+
+      .social-button {
+        border: 1px solid #d8dce8;
+        background: #f8f9fc;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .social-button:focus-visible,
+      .social-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 20px rgba(31, 36, 48, 0.08);
+        outline: none;
+      }
+
+      .social-button span {
+        font-size: 0.95rem;
+      }
+
+      .logo {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        display: grid;
+        place-items: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .google {
+        background: linear-gradient(135deg, #ea4335, #4285f4);
+      }
+
+      .facebook {
+        background: linear-gradient(135deg, #1877f2, #4b92ff);
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 0.85rem;
+        color: #4a5163;
+      }
+
+      input {
+        border: 1px solid #d8dce8;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #4b6bff;
+        box-shadow: 0 0 0 3px rgba(75, 107, 255, 0.15);
+      }
+
+      .primary {
+        background: #4b6bff;
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .primary:hover,
+      .primary:focus-visible {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 24px rgba(75, 107, 255, 0.25);
+        outline: none;
+      }
+
+      .secondary {
+        background: #ffffff;
+        color: #4b6bff;
+        border: 1px solid #c9d3ff;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .secondary:hover,
+      .secondary:focus-visible {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 18px rgba(75, 107, 255, 0.15);
+        outline: none;
+      }
+
+      .helper {
+        font-size: 0.85rem;
+        color: #5c6579;
+        margin: 0;
+      }
+
+      .link {
+        color: #4b6bff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .status {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: #f1f5ff;
+        color: #2f3a5f;
+        font-size: 0.9rem;
+      }
+
+      .status strong {
+        font-size: 0.95rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 20px 12px;
+        }
+
+        .card {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="welcome-title">
+        <span class="pill">Sign in</span>
+        <h1 id="welcome-title">Welcome back</h1>
+        <p class="subtitle">
+          Choose a social provider or log in with your email and password.
+        </p>
+        <div class="social-group" role="group" aria-label="Social login">
+          <button class="social-button" type="button" data-provider="Google">
+            <span class="logo google" aria-hidden="true">G</span>
+            <span>Continue with Google</span>
+          </button>
+          <button class="social-button" type="button" data-provider="Facebook">
+            <span class="logo facebook" aria-hidden="true">f</span>
+            <span>Continue with Facebook</span>
+          </button>
+        </div>
+        <form id="login-form">
+          <label for="login-email">
+            Email address
+            <input
+              id="login-email"
+              name="login-email"
+              type="email"
+              placeholder="jane@example.com"
+              autocomplete="email"
+              required
+            />
+          </label>
+          <label for="login-password">
+            Password
+            <input
+              id="login-password"
+              name="login-password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+          </label>
+          <button class="primary" type="submit">Log in</button>
+        </form>
+        <p class="helper">
+          Forgot your password?
+          <a class="link" href="#" aria-label="Reset password">Reset password</a>
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="signup-title">
+        <span class="pill">Create account</span>
+        <h2 id="signup-title">Start a new account</h2>
+        <p class="subtitle">Fill in the details below to set up your profile.</p>
+        <form id="signup-form">
+          <label for="name">
+            Full name
+            <input id="name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" required />
+          </label>
+          <label for="email">
+            Email address
+            <input id="email" name="email" type="email" placeholder="jane@example.com" autocomplete="email" required />
+          </label>
+          <label for="password">
+            Password
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            />
+          </label>
+          <button class="primary" type="submit">Create account</button>
+        </form>
+        <div class="status" id="status" role="status" aria-live="polite">
+          <strong>Not signed in</strong>
+          <span>Create an account or sign in to continue.</span>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button" id="logout-button">Log out</button>
+          <button class="secondary" type="button" id="clear-data">Clear saved accounts</button>
+        </div>
+        <p class="helper">
+          Already have an account?
+          <a class="link" href="#" aria-label="Go to login">Sign in</a>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const USERS_KEY = "avatar_users";
+      const SESSION_KEY = "avatar_session";
+
+      const statusBox = document.getElementById("status");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const logoutButton = document.getElementById("logout-button");
+      const clearDataButton = document.getElementById("clear-data");
+
+      const readUsers = () => {
+        const raw = localStorage.getItem(USERS_KEY);
+        return raw ? JSON.parse(raw) : [];
+      };
+
+      const writeUsers = (users) => {
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      };
+
+      const readSession = () => {
+        const raw = localStorage.getItem(SESSION_KEY);
+        return raw ? JSON.parse(raw) : null;
+      };
+
+      const writeSession = (session) => {
+        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      };
+
+      const clearSession = () => {
+        localStorage.removeItem(SESSION_KEY);
+      };
+
+      const updateStatus = () => {
+        const session = readSession();
+        if (!session) {
+          statusBox.innerHTML = "<strong>Not signed in</strong><span>Create an account or sign in to continue.</span>";
+          return;
+        }
+
+        const providerLabel = session.provider ? ` via ${session.provider}` : "";
+        statusBox.innerHTML = `<strong>Signed in${providerLabel}</strong><span>${session.name}</span>`;
+      };
+
+      document.querySelectorAll(".social-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const provider = button.dataset.provider;
+          const displayName = window.prompt(`Enter the name for your ${provider} account`, "Guest User");
+          if (!displayName) {
+            return;
+          }
+          const session = { name: displayName, provider };
+          writeSession(session);
+          updateStatus();
+          alert(`Signed in with ${provider} as ${displayName}.`);
+        });
+      });
+
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = signupForm.name.value.trim();
+        const email = signupForm.email.value.trim().toLowerCase();
+        const password = signupForm.password.value;
+
+        const users = readUsers();
+        const existing = users.find((user) => user.email === email);
+        if (existing) {
+          alert("An account with that email already exists. Try logging in instead.");
+          return;
+        }
+
+        const newUser = { name, email, password };
+        users.push(newUser);
+        writeUsers(users);
+        writeSession({ name, provider: "Email" });
+        signupForm.reset();
+        updateStatus();
+        alert("Account created successfully. You're now logged in.");
+      });
+
+      loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = loginForm["login-email"].value.trim().toLowerCase();
+        const password = loginForm["login-password"].value;
+        const users = readUsers();
+        const user = users.find((entry) => entry.email === email && entry.password === password);
+        if (!user) {
+          alert("We couldn't find that account. Check your details or create a new account.");
+          return;
+        }
+
+        writeSession({ name: user.name, provider: "Email" });
+        loginForm.reset();
+        updateStatus();
+        alert(`Welcome back, ${user.name}!`);
+      });
+
+      logoutButton.addEventListener("click", () => {
+        clearSession();
+        updateStatus();
+      });
+
+      clearDataButton.addEventListener("click", () => {
+        writeUsers([]);
+        clearSession();
+        updateStatus();
+        alert("All saved accounts were cleared from this browser.");
+      });
+
+      updateStatus();
+    </script>
+  </body>
+</html>
